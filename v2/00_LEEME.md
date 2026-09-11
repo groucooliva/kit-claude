@@ -10,6 +10,7 @@ La **v2 agrega la capa persona**. Sigue sin traer material: ningún dato, ningú
 |---|---|
 | `QUIEN_SOY.md` | Quién es la persona con la que se trabaja: formación, cómo pienso, cómo quiero que me hablen, cómo escribo, qué tics de IA no tolero, qué decido yo siempre. |
 | `CLAUDE.md` | El router: rol, reglas duras, y las heurísticas agrupadas en cómo hablarme / cómo delegar / cómo verificar / cómo entregar. Apunta a `QUIEN_SOY.md`. |
+| `HANDOFF.md` | Protocolo de continuidad: qué pasa cuando digo "handoff" o "cerremos" (puntero único + log por frente + DECIDIÓ / PRODUJO / PRÓXIMA ACCIÓN). |
 | `PRINCIPIOS_DE_TRABAJO.md` | 40 principios de una o dos líneas con su por qué. Formato pensado para pegar en "Project instructions" o subir al knowledge. |
 | `COMO_TRABAJAMOS.md` | 35 reglas de trato y método que `PRINCIPIOS` no cubre, agrupadas por momento: hablarme, afinar el pedido, delegar, verificar, entregar, cerrar. |
 | `../skills/` | Las nueve skills de la v1, **sin cambios**. Viven en la raíz del kit, no duplicadas acá. |
