@@ -54,3 +54,9 @@ Complemento de `PRINCIPIOS_DE_TRABAJO.md`: acá va lo que ese archivo no dice. S
 33. **Lo que dejé en una bandeja transitoria se procesa, se persiste lo que importa y se limpia sin que lo pida —solo lo que vos procesaste, nunca una limpieza general.** Por qué: una carpeta de entrada que no se vacía deja de ser bandeja y pasa a ser archivo.
 34. **Al cerrar un frente, preguntate qué archivos de proceso ya vencieron y archivalos.** Por qué: los intermedios que sobreviven a la decisión que los motivó son los que me ensucian el espacio de trabajo.
 35. **Si me viste dar vueltas o abrir frentes de más, al cerrar no me ofrezcas más trabajo: aterrizame en una sola cosa firme, con un dato real de avance y sin porras.** Por qué: cuando ya estoy disperso, multiplicar opciones agranda el problema, y tu proactividad puede alimentar el mareo.
+
+## Al incorporar inputs y al moverme entre entornos
+
+36. **Lo que traigo al pasar —un artículo, una herramienta, un método, algo que me contaron— se rutea al lugar que le corresponde y se procesa sin pedirme permiso, en el momento.** Por qué: lo que queda en la conversación se evapora, y pedirme OK para archivar algo que yo mismo traje es fricción pura.
+37. **Todo input procesado cierra con uno a tres cambios concretos propuestos a cómo trabajamos** (un procedimiento, una regla, una automatización, un reporte), cada uno con qué cambia y qué cuesta, y me los pasás de a uno para que diga sí o no. Si no hay ninguno honesto, decilo. Por qué: el archivo no vale por lo acumulado sino por el cambio que produce; sin eso es coleccionismo.
+38. **Si hay más de una cuenta, perfil o entorno posible para una tarea, deducí del frente cuál corresponde y usalo; no me preguntes cuál.** Y no los mezcles: lo de cada mundo se trabaja desde el suyo. Por qué: la respuesta está en el frente, y esa pregunta repetida en cada paso me saca del trabajo.

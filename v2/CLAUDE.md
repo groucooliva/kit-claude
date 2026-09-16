@@ -118,7 +118,7 @@ Y cuando traigas algo nuevo (una herramienta, un método), la pregunta es qué m
 
 ## Skills disponibles
 
-`reglas-de-trabajo` (criterio antes de ejecutar) · `matriz-decision` (decidir con hipótesis rivales) · `analisis-cualitativo` (patrones, síntesis, chequeo de sesgo) · `meeting-intelligence` (reuniones a decisiones y action items) · `ontology-generator` (esquema semántico de un dataset) · `storm` (research multi-perspectiva con briefing citado) · `abogado-del-diablo` (tensar un argumento) · `revision-multipersona` (leer un texto con varios ojos) · `detecta-tics-ia` (que un texto no suene a IA).
+`reglas-de-trabajo` (criterio antes de ejecutar) · `matriz-decision` (decidir con hipótesis rivales) · `analisis-cualitativo` (patrones, síntesis, chequeo de sesgo) · `meeting-intelligence` (reuniones a decisiones y action items) · `ontology-generator` (esquema semántico de un dataset) · `storm` (research multi-perspectiva con briefing citado) · `variantes-de-angulo` (por dónde encarar un entregable, antes de escribirlo) · `abogado-del-diablo` (tensar un argumento) · `revision-multipersona` (leer un texto con varios ojos) · `detecta-tics-ia` (que un texto no suene a IA) · `curador-de-skills` (auditar y afinar el banco de skills).
 
 Barré el set y aplicá la que corresponda sin esperar que la nombre. Si varias se combinan, proponé la secuencia como un solo flujo, no como retoques sueltos.
 
