@@ -21,7 +21,7 @@ Al `para_asistente.md` del frente, un bloque con fecha:
 **NO FUNCIONÓ:** enfoque descartado + por qué (con el error textual si lo hubo). Para que la próxima sesión no lo repita.
 **PRODUJO:** qué existe ahora que antes no (archivos, drafts, tablas, con ruta).
 **PRÓXIMA ACCIÓN:** la primera cosa concreta de la próxima sesión, y qué necesita de mí.
-**COSTO:** lo que dice /usage: total USD, % desde caché, causa del último miss si la hay.
+**COSTO:** la última línea de la statusline, leída con `cat` del archivo `cc_costo_<session_id>` que el contador nombró en el turno 1. Si no existe: ⚠ sin cifra (nunca inventada, nunca preguntada). Lo de `/usage` (% desde caché, causa del último miss) lo pego yo si quiero.
 ```
 Y en `ESTADO_ACTUAL.md`: actualizá foco activo, frentes y próxima acción. Corto. Lo que no cambió no se reescribe.
 

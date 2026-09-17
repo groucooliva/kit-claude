@@ -63,7 +63,7 @@ Lo mismo a mitad de sesión: si aparece un tema nuevo, offload o charla, **nombr
 
 Apenas el resultado está en el archivo:
 
-1. Corré `/usage` y anotá en el handoff una línea: costo de la sesión, % servido desde caché y, si hay, la causa del último miss. Es la única forma de saber en dos semanas dónde se va la plata.
+1. Anotá en el handoff la última línea de la statusline: `cat` del archivo `cc_costo_<session_id>` que el contador nombró en el turno 1 (costo USD, % de contexto, caché). Vos no ves la statusline ni podés correr `/usage`: si el archivo no existe, va ⚠ sin cifra, nunca una cifra inventada ni una pregunta. Es la única forma de saber en dos semanas dónde se va la plata.
 2. Escribí el handoff según `HANDOFF.md` (DECIDIÓ / NO FUNCIONÓ / PRODUJO / PRÓXIMA ACCIÓN / COSTO), con el criterio de terminado y la evidencia (el archivo abierto, el conteo, la tabla), no "listo". Si `ESTADO_ACTUAL.md` o el `para_asistente.md` del frente no existen, se crean con este handoff.
 3. Cerrá con esta frase, literal: **"Tarea cerrada. Corré `/clear` y arrancá con la próxima de la Cola (ESTADO_ACTUAL.md)."**
 4. No ofrezcas "¿seguimos con otra cosa?", no propongas mejoras opcionales, no abras un frente nuevo. Ofrecer continuidad es lo que hace la maratón.

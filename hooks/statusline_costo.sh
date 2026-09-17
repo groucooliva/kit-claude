@@ -7,6 +7,10 @@
 # Git for Windows no trae jq. El costo es estimado a precio de lista salvo que el
 # admin haya fijado modelPricing. En Enterprise no hay barras de plan: solo esto.
 # Los campos de caché requieren Claude Code v2.1.251+; si faltan, muestra "caché ?".
+#
+# Además deja la última línea en $tmp/cc_costo_<session_id>: la statusline la ve
+# la persona, no el modelo; con ese archivo el contador se la copia en cada aviso
+# ⏱ y el handoff la lee con cat para el campo COSTO, sin inventar cifras.
 
 IFS= read -r -d '' input || true
 num()  { [[ $input =~ \"$1\"[[:space:]]*:[[:space:]]*(-?[0-9.]+) ]] && printf '%s' "${BASH_REMATCH[1]}"; }
@@ -29,10 +33,13 @@ if [ -n "$hit" ]; then
   cache="$cache hit ${h}%"
 fi
 
-turno=""
+turno=""; costo_f=""
 if [ -n "$sid" ]; then
-  f="${TMPDIR:-${TEMP:-/tmp}}/cc_turnos_${sid//[^A-Za-z0-9_.-]/_}"
+  tmp="${TMPDIR:-${TEMP:-/tmp}}"; clave="${sid//[^A-Za-z0-9_.-]/_}"
+  f="$tmp/cc_turnos_$clave"; costo_f="$tmp/cc_costo_$clave"
   [ -r "$f" ] && read -r turno < "$f" && turno=" · turno $turno"
 fi
 
-echo "[${model:-?}] \$${costf} · ctx ${pct:-0}% (${ktok}k tok) · ${cache}${turno}"
+linea="[${model:-?}] \$${costf} · ctx ${pct:-0}% (${ktok}k tok) · ${cache}${turno}"
+[ -n "$costo_f" ] && { { printf '%s\n' "$linea" > "$costo_f"; } 2>/dev/null || true; }
+echo "$linea"

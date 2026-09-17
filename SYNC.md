@@ -37,15 +37,17 @@ Y solo pull: este clon no se commitea ni se pushea desde el trabajo.
 
 | Del kit | A la máquina de trabajo |
 |---|---|
-| `v2/CLAUDE.md` | `CLAUDE.md` de la raíz de trabajo (si se usa el router del kit tal cual) |
+| `v2/CLAUDE.md` | `CLAUDE.md` de la raíz de trabajo, tal cual. **Es el único router.** |
 | `v2/QUIEN_SOY.md`, `v2/COMO_TRABAJAMOS.md`, `v2/PRINCIPIOS_DE_TRABAJO.md`, `v2/HANDOFF.md` | al lado, en la raíz de trabajo. `QUIEN_SOY.md` tiene que quedar al lado del `CLAUDE.md` para que el import `@QUIEN_SOY.md` resuelva |
-| `v2/plantillas/CLAUDE_raiz_de_trabajo.md` | `CLAUDE.md` de la raíz, **adaptado**: completar los `<>` con los frentes, el vocabulario y las herramientas reales |
+| `v2/plantillas/MAPA_DE_CARPETAS.md` | se pega **al final** de ese mismo `CLAUDE.md`, completando los `<>` con los frentes, el vocabulario y las herramientas reales. No es un segundo `CLAUDE.md` |
 | `v2/plantillas/CLAUDE_brain.md` | `brain/CLAUDE.md`, sin cambios |
 | `skills/*` | `~/.claude/skills/<nombre>/SKILL.md` (una carpeta por skill) |
 | `hooks/*.sh` | `~/.claude/hooks/`, sin `chmod` (se invocan como `bash <ruta>`) |
 | `v2/plantillas/settings_dell.json` | `~/.claude/settings.json` (si ya existe, se fusionan las claves a mano) |
 
-Las dos formas de armar el `CLAUDE.md` de la raíz: o se usa `v2/CLAUDE.md` (que ya trae rol, reglas duras y heurísticas) y la plantilla queda como referencia de estructura de carpetas, o se usa la plantilla como router y `v2/CLAUDE.md` se deja al lado como archivo de criterio. Lo primero es más rápido el día uno; lo segundo separa mejor router de método.
+Una sola vía: el `CLAUDE.md` de la raíz es `v2/CLAUDE.md` (rol, reglas duras, sesión acotada, heurísticas) con la sección *Mapa de carpetas* pegada abajo. Antes había dos formas descritas y no se elegía; quedó esta.
+
+Fin de línea: el repo trae `.gitattributes` (`*.sh`, `*.json` y `*.md` en LF) porque Git for Windows instala con `core.autocrlf=true` y con CRLF los hooks fallan en la primera línea. Un clon hecho antes de ese archivo se arregla con `git pull` y `git rm --cached -r . && git reset --hard` (o reclonando).
 
 Después de copiar: abrir una sesión desde la raíz y verificar que el `CLAUDE.md` se cargó y que las skills aparecen listadas.
 
