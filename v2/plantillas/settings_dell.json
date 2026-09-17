@@ -1,5 +1,6 @@
 {
   "model": "sonnet",
+  "promptCacheTtl": "1h",
   "crossSessionInbound": "hold",
   "autoContinueAtUsageLimit": false,
   "env": {
