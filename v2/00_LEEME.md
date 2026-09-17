@@ -97,7 +97,7 @@ El problema que resuelve: las sesiones-maratón (abrir una conversación, tirarl
 
 - `"promptCacheTtl": "1h"`: en Enterprise, apenas pasás a usage credits, Claude Code baja el caché de la conversación principal de una hora a **cinco minutos**. Con eso, cada pausa de más de cinco minutos (pensar, una reunión, un Slack) reescribe el contexto entero al volver: con 100k de contexto en Sonnet son ~USD 0,25 por pausa, contra ~USD 0,02 si el caché sigue caliente. La contracara documentada: la escritura a una hora cuesta 2x el input base (a cinco minutos, 1,25x), pero eso se paga solo sobre lo NUEVO de cada turno (unos pocos miles de tokens), no sobre todo el contexto: en una sesión de 25 turnos son centavos. Una sola pausa larga por sesión ya lo amortiza. Si tu día es de ráfagas cortas sin pausas, sacala. Los subagentes quedan en cinco minutos a propósito (son ráfagas).
 
-**Lo que NO está, y por qué.** `subagentPromptCacheTtl`: los subagentes corren en ráfaga y terminan; la hora no les rinde.
+**Lo que NO está, y por qué.** `subagentPromptCacheTtl`: los subagentes corren en ráfaga y terminan; la hora no les rinde. `effortLevel` global: bajaría la calidad justo donde molesta; se baja por sesión con `--effort`. Un tope en dólares por sesión: no existe en modo interactivo (`--max-budget-usd` es solo para `claude -p`); el tope es el spend limit que fija el admin y se ve en `/usage`; si querés uno propio, pedile al admin un límite individual.
 
 ### Sobre los hooks, lo verificado en la documentación oficial
 
