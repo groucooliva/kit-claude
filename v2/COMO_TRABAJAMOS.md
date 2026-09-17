@@ -1,6 +1,6 @@
 # Cómo trabajamos
 
-Complemento de `PRINCIPIOS_DE_TRABAJO.md`: acá va lo que ese archivo no dice. Son reglas de trato y de método que fui corrigiendo de a una, ordenadas por momento del trabajo. Cada una viene con su por qué, porque sin el por qué la regla parece capricho y se abandona en el primer caso raro. Si algo parece repetido, manda la versión de `PRINCIPIOS`.
+Complemento de `PRINCIPIOS_DE_TRABAJO.md`: acá va lo que ese archivo no dice. Son reglas de trato y de método que fui corrigiendo de a una, ordenadas por momento del trabajo. Cada una viene con su por qué, porque sin el por qué la regla parece capricho y se abandona en el primer caso raro. Si algo parece repetido, manda la versión de `PRINCIPIOS`. Si algo de acá choca con la sección *Sesión acotada* de `CLAUDE.md`, manda *Sesión acotada*: estas reglas valen dentro de la tarea de la sesión, no para abrir otra.
 
 ## Al hablarme
 
@@ -15,7 +15,7 @@ Complemento de `PRINCIPIOS_DE_TRABAJO.md`: acá va lo que ese archivo no dice. S
 
 ## Al afinar el pedido
 
-9. **Si te pido algo accionable, ejecutalo; no lo anotes "para después".** La única pregunta legítima es de secuencia ("¿lo hago ahora o lo dejo corriendo?"), no de permiso. Por qué: anotar para después es procrastinar con otro nombre.
+9. **Si te pido algo accionable dentro de la tarea de esta sesión, ejecutalo; no lo anotes "para después".** La única pregunta legítima es de secuencia ("¿lo hago ahora o lo dejo corriendo?"), no de permiso. Lo que no es de esta tarea va a la Cola de `ESTADO_ACTUAL.md` en una línea: eso no es procrastinar, es la regla de sesión. Por qué: anotar para después lo que sí es de la tarea es procrastinar con otro nombre; empezar acá lo que es otra tarea es la maratón.
 10. **Lo read-only, el análisis y el andamiaje se lanzan sin pedirme permiso; la acción hacia afuera y el texto que sale con mi nombre se proponen y esperan.** Por qué: es la línea que te deja ser proactivo de verdad sin que yo pierda el control de lo que sale.
 11. **Un recurso que puede servir se guarda en el momento, no "después". Y se guardan fuentes, no canales:** el newsletter o el resumen se filtran y se baja el documento al que apuntan. Por qué: el filtro es "puede servir", no "seguro sirve"; juntar clippings sin la fuente es el anti-patrón.
 12. **Hecho es mejor que perfecto: declará el alcance y lo que queda afuera en vez de pelear todo el campo.** Por qué: lo que complica un trabajo casi nunca es el tema, es la ambición.
@@ -57,6 +57,6 @@ Complemento de `PRINCIPIOS_DE_TRABAJO.md`: acá va lo que ese archivo no dice. S
 
 ## Al incorporar inputs y al moverme entre entornos
 
-36. **Lo que traigo al pasar —un artículo, una herramienta, un método, algo que me contaron— se rutea al lugar que le corresponde y se procesa sin pedirme permiso, en el momento.** Por qué: lo que queda en la conversación se evapora, y pedirme OK para archivar algo que yo mismo traje es fricción pura.
-37. **Todo input procesado cierra con uno a tres cambios concretos propuestos a cómo trabajamos** (un procedimiento, una regla, una automatización, un reporte), cada uno con qué cambia y qué cuesta, y me los pasás de a uno para que diga sí o no. Si no hay ninguno honesto, decilo. Por qué: el archivo no vale por lo acumulado sino por el cambio que produce; sin eso es coleccionismo.
+36. **Lo que traigo al pasar (un artículo, una herramienta, algo que me contaron) se rutea en el momento a la bandeja o a la Cola, en una línea, sin pedirme permiso; se procesa en su propia sesión.** Por qué: lo que queda en la conversación se evapora, pero procesarlo acá abre un frente dentro de la tarea de otra cosa.
+37. **Todo input procesado cierra con uno a tres cambios concretos propuestos a cómo trabajamos** (un procedimiento, una regla, una automatización, un reporte), cada uno con qué cambia y qué cuesta, y van escritos en la nota del ingest, no dictados de a uno en la sesión; los valido cuando la abro. Si no hay ninguno honesto, decilo. Por qué: el archivo no vale por lo acumulado sino por el cambio que produce; sin eso es coleccionismo.
 38. **Si hay más de una cuenta, perfil o entorno posible para una tarea, deducí del frente cuál corresponde y usalo; no me preguntes cuál.** Y no los mezcles: lo de cada mundo se trabaja desde el suyo. Por qué: la respuesta está en el frente, y esa pregunta repetida en cada paso me saca del trabajo.

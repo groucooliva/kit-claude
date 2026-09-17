@@ -12,7 +12,7 @@ Claude Code se abre **siempre desde esta carpeta raíz**, nunca desde una subcar
 - `proyectos/<cliente-o-frente>/` — una carpeta por frente vivo. Cada una con su `para_asistente.md` (log del frente: qué se decidió, qué se produjo, próxima acción) y sus archivos de trabajo.
 - `_inbox/` — bandeja de entrada: lo que cae para procesar (exports, capturas, documentos que me mandan). Se procesa, se persiste lo que importa en el frente o en `brain/`, y se limpia. Si algo lleva semanas acá, no era material: era ruido.
 - `_archivo/` — lo que ya cumplió su función y no quiero borrar. No se lee salvo que lo pida.
-- `ESTADO_ACTUAL.md` — el único puntero de continuidad: en qué ando, frentes abiertos, próxima acción de cada uno. Una pantalla máximo.
+- `ESTADO_ACTUAL.md` — el único puntero de continuidad: en qué ando, frentes abiertos, próxima acción de cada uno. Una pantalla máximo. Tiene una sección ## Cola: una línea por tarea pendiente (título + frente), sin análisis. Es lo único que se lee al arrancar, así que la cola vive acá y no en el log de un frente.
 
 ## Al arrancar la sesión
 

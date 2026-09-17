@@ -1,47 +1,53 @@
 #!/usr/bin/env bash
 # Contador de turnos por sesión — hook UserPromptSubmit.
 #
-# Cuenta los prompts de la sesión y, en los turnos 15, 25 y 35, imprime UNA línea
-# por stdout. Claude Code agrega el stdout de un hook UserPromptSubmit al contexto
-# como texto que el modelo ve, así que esa línea funciona como recordatorio de cerrar.
-# En los demás turnos no imprime nada (silencio = cero tokens).
+# Cuenta los prompts de la sesión y avisa en el turno 15, en el 25 y desde el 35
+# cada 5 turnos. Devuelve JSON con dos campos: systemMessage (lo ve la persona en
+# pantalla) y additionalContext (lo ve el modelo). Con stdout plano el aviso NO
+# aparece en pantalla: solo lo ve el modelo, y un aviso que la persona no ve no
+# frena nada. En el turno 1 avisa "contador activo" para que se sepa que corre.
 #
-# Entrada: JSON por stdin con session_id, transcript_path, cwd, prompt, hook_event_name.
-# Salida: texto plano por stdout, exit 0. Nunca exit 2 (eso BORRARÍA el prompt).
-# Portable: bash sin jq. Timeout del hook: 30 s (esto corre en milisegundos).
+# Solo builtins de bash (sin jq, sed, tr ni find): Git Bash en Windows puede
+# lanzar el hook con un PATH pelado y ahí cualquier comando externo falla en
+# silencio. Exit 0 siempre; nunca exit 2 (borraría el prompt).
 
 set -u
 
-entrada=$(cat)
+IFS= read -r -d '' entrada || true
 
-# session_id sin jq: se aplana el JSON y se saca el primer valor entrecomillado.
-sesion=$(printf '%s' "$entrada" | tr -d '\n' \
-  | sed -n 's/.*"session_id"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
-[ -n "$sesion" ] || sesion="sin_id"
-# Se sanea para usarlo como nombre de archivo.
-sesion=$(printf '%s' "$sesion" | tr -c 'A-Za-z0-9_.-' '_')
+# Clave de la sesión: session_id; si falta, el nombre del transcript (cambia con
+# cada conversación, incluido /clear); si tampoco está, "sin_id".
+clave=""
+if [[ $entrada =~ \"session_id\"[[:space:]]*:[[:space:]]*\"([^\"]+)\" ]]; then
+  clave="${BASH_REMATCH[1]}"
+elif [[ $entrada =~ \"transcript_path\"[[:space:]]*:[[:space:]]*\"([^\"]+)\" ]]; then
+  clave="${BASH_REMATCH[1]##*/}"
+fi
+[ -n "$clave" ] || clave="sin_id"
+clave="${clave//[^A-Za-z0-9_.-]/_}"
 
-tmp="${TMPDIR:-/tmp}"
-archivo="$tmp/cc_turnos_$sesion"
+tmp="${TMPDIR:-${TEMP:-/tmp}}"
+archivo="$tmp/cc_turnos_$clave"
 
-n=$(cat "$archivo" 2>/dev/null || echo 0)
-case "$n" in ''|*[!0-9]*) n=0 ;; esac
+n=0
+[ -r "$archivo" ] && read -r n < "$archivo"
+[[ $n =~ ^[0-9]+$ ]] || n=0
 n=$((n + 1))
-printf '%s' "$n" > "$archivo" 2>/dev/null || true
+printf '%s\n' "$n" > "$archivo" 2>/dev/null || true
 
-# Higiene: los contadores de sesiones viejas se borran solos.
-find "$tmp" -maxdepth 1 -name 'cc_turnos_*' -mtime +2 -delete 2>/dev/null || true
+msg=""
+if [ "$n" -eq 1 ]; then
+  msg="⏱ Contador de turnos activo."
+elif [ "$n" -eq 15 ]; then
+  msg="⏱ Turno 15: ¿seguimos en la MISMA tarea? Si sí, seguí. Si el tema cambió, eso es otra sesión: handoff y /clear."
+elif [ "$n" -eq 25 ]; then
+  msg="⏱ Turno 25: la sesión ya está cara. Cerrá en el próximo hito: handoff y /clear."
+elif [ "$n" -ge 35 ] && [ $(((n - 35) % 5)) -eq 0 ]; then
+  msg="⏱ Turno $n: cerrá AHORA aunque quede a medias. Handoff con dónde retomar, y /clear."
+fi
 
-case "$n" in
-  15)
-    echo "⏱ Turno 15 de esta sesión: cerrá en el próximo hito — escribí el handoff y pedile que corra /clear y abra una sesión nueva para lo que siga."
-    ;;
-  25)
-    echo "⏱ Turno 25: la sesión ya está cara. Terminá lo que está a mano, escribí el handoff con la próxima acción y cerrá; lo demás va a la lista para otra sesión."
-    ;;
-  35)
-    echo "⏱ Turno 35: cerrá ahora aunque la tarea quede a medias. Handoff con el estado exacto y dónde retomar, y sesión nueva."
-    ;;
-esac
+if [ -n "$msg" ]; then
+  printf '{"systemMessage":"%s","hookSpecificOutput":{"hookEventName":"UserPromptSubmit","additionalContext":"%s"}}\n' "$msg" "$msg"
+fi
 
 exit 0

@@ -38,11 +38,11 @@ Y solo pull: este clon no se commitea ni se pushea desde el trabajo.
 | Del kit | A la máquina de trabajo |
 |---|---|
 | `v2/CLAUDE.md` | `CLAUDE.md` de la raíz de trabajo (si se usa el router del kit tal cual) |
-| `v2/QUIEN_SOY.md`, `v2/COMO_TRABAJAMOS.md`, `v2/PRINCIPIOS_DE_TRABAJO.md`, `v2/HANDOFF.md` | al lado, en la raíz de trabajo |
+| `v2/QUIEN_SOY.md`, `v2/COMO_TRABAJAMOS.md`, `v2/PRINCIPIOS_DE_TRABAJO.md`, `v2/HANDOFF.md` | al lado, en la raíz de trabajo. `QUIEN_SOY.md` tiene que quedar al lado del `CLAUDE.md` para que el import `@QUIEN_SOY.md` resuelva |
 | `v2/plantillas/CLAUDE_raiz_de_trabajo.md` | `CLAUDE.md` de la raíz, **adaptado**: completar los `<>` con los frentes, el vocabulario y las herramientas reales |
 | `v2/plantillas/CLAUDE_brain.md` | `brain/CLAUDE.md`, sin cambios |
 | `skills/*` | `~/.claude/skills/<nombre>/SKILL.md` (una carpeta por skill) |
-| `hooks/contador_turnos.sh` | `~/.claude/hooks/contador_turnos.sh`, con `chmod +x` |
+| `hooks/*.sh` | `~/.claude/hooks/`, sin `chmod` (se invocan como `bash <ruta>`) |
 | `v2/plantillas/settings_dell.json` | `~/.claude/settings.json` (si ya existe, se fusionan las claves a mano) |
 
 Las dos formas de armar el `CLAUDE.md` de la raíz: o se usa `v2/CLAUDE.md` (que ya trae rol, reglas duras y heurísticas) y la plantilla queda como referencia de estructura de carpetas, o se usa la plantilla como router y `v2/CLAUDE.md` se deja al lado como archivo de criterio. Lo primero es más rápido el día uno; lo segundo separa mejor router de método.
