@@ -1,0 +1,18 @@
+{
+  "model": "sonnet",
+  "promptCacheTtl": "1h",
+  "subagentPromptCacheTtl": "1h",
+  "crossSessionInbound": "hold",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/contador_turnos.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

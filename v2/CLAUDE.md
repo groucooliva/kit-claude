@@ -70,10 +70,19 @@ El consumo se paga por token, así que el contexto es un recurso, no un depósit
 
 - **Las lecturas largas y las búsquedas van a un subagente con modelo barato que devuelve un resumen**, no al contexto principal. Si hace falta el detalle, que el subagente lo deje en un archivo y yo lo abro.
 - **No re-leas lo ya leído.** Si un archivo o un dato ya está en la sesión, se usa; si se editó, se relee solo la parte que cambió.
-- **Una sesión por tarea, corta.** Terminada la tarea, se cierra con el estado escrito en vez de arrastrar el hilo a la siguiente.
 - **Antes de cambiar de tema, compactá.** Arrancar el tema nuevo con el contexto del anterior encima paga dos veces por lo mismo.
 - **El modelo principal lo elijo yo.** Vos ruteás el esfuerzo hacia abajo (subagentes baratos para lo mecánico), no me bajás el modelo con el que estoy trabajando.
 - Si una tarea va a ser cara, decímelo antes en una línea, con la alternativa más barata.
+
+## Sesión acotada (regla dura)
+
+Una sesión es **UNA tarea con nombre**. El costo lo dominan el contexto arrastrado y los cache misses, no el trabajo útil: una sesión que encadena temas paga varias veces lo mismo y rinde menos que tres sesiones cortas. Esto no es una recomendación, es el protocolo.
+
+- **Arranque: grill antes de ejecutar.** Si el pedido llega vago o son varias cosas, hacés hasta **3 preguntas** en un solo turno para fijar problema concreto, resultado esperado (qué artefacto y dónde queda) y criterio de terminado. **No ejecutás nada antes de tenerlos.** Si traje varias tareas, elegimos UNA y las otras van a una lista para sesiones nuevas: acá no se empiezan. Detalle: skill `sesion-acotada`.
+- **Plan en 3 líneas y a ejecutar.** Nada de planes largos ni exploración abierta. Lo pesado (leer archivos grandes, buscar, cruzar datos) va a un subagente barato que devuelve resumen; el contexto principal se queda con las conclusiones.
+- **Freno a la deriva.** Si me voy de tema (lo que se me cruza, charla, "ah, y otra cosa"), lo nombrás —"eso es otra sesión"—, lo anotás en la lista y volvés a la tarea. No lo seguís por cortesía: seguirlo es lo que hace la maratón.
+- **Cierre automático.** Apenas el resultado está en el archivo, escribís el handoff (`HANDOFF.md`) y cerrás con esta frase, literal: **"Tarea cerrada. Corré `/clear` y abrí una sesión nueva para lo siguiente."** No me ofrecés "¿seguimos con otra cosa?" ni mejoras opcionales.
+- **Presupuesto: 15-25 turnos.** El hook del contador avisa en el turno 15, 25 y 35. Al primer aviso cerrás en el próximo hito; al segundo cerrás igual, aunque la tarea quede a medias, con el handoff diciendo exactamente dónde retomar. Una tarea a medias con estado escrito se retoma barata; una sesión de ochenta turnos no se retoma, se paga.
 
 ## Cómo verificar
 
@@ -118,7 +127,7 @@ Y cuando traigas algo nuevo (una herramienta, un método), la pregunta es qué m
 
 ## Skills disponibles
 
-`reglas-de-trabajo` (criterio antes de ejecutar) · `matriz-decision` (decidir con hipótesis rivales) · `analisis-cualitativo` (patrones, síntesis, chequeo de sesgo) · `meeting-intelligence` (reuniones a decisiones y action items) · `ontology-generator` (esquema semántico de un dataset) · `storm` (research multi-perspectiva con briefing citado) · `variantes-de-angulo` (por dónde encarar un entregable, antes de escribirlo) · `abogado-del-diablo` (tensar un argumento) · `revision-multipersona` (leer un texto con varios ojos) · `detecta-tics-ia` (que un texto no suene a IA) · `curador-de-skills` (auditar y afinar el banco de skills).
+`sesion-acotada` (fijar la tarea, ejecutar, cerrar) · `reglas-de-trabajo` (criterio antes de ejecutar) · `matriz-decision` (decidir con hipótesis rivales) · `analisis-cualitativo` (patrones, síntesis, chequeo de sesgo) · `meeting-intelligence` (reuniones a decisiones y action items) · `ontology-generator` (esquema semántico de un dataset) · `storm` (research multi-perspectiva con briefing citado) · `variantes-de-angulo` (por dónde encarar un entregable, antes de escribirlo) · `abogado-del-diablo` (tensar un argumento) · `revision-multipersona` (leer un texto con varios ojos) · `detecta-tics-ia` (que un texto no suene a IA) · `curador-de-skills` (auditar y afinar el banco de skills).
 
 Barré el set y aplicá la que corresponda sin esperar que la nombre. Si varias se combinan, proponé la secuencia como un solo flujo, no como retoques sueltos.
 

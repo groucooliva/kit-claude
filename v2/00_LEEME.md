@@ -15,7 +15,9 @@ La **v2 agrega la capa persona**. Sigue sin traer material: ningún dato, ningú
 | `COMO_TRABAJAMOS.md` | 38 reglas de trato y método que `PRINCIPIOS` no cubre, agrupadas por momento: hablarme, afinar el pedido, delegar, verificar, entregar, cerrar, incorporar inputs. |
 | `plantillas/CLAUDE_raiz_de_trabajo.md` | El router de la carpeta raíz del entorno de trabajo: se abre el asistente siempre desde ahí, mapa de carpetas, dónde va cada tipo de cosa, higiene de archivos. Se completa el primer día. |
 | `plantillas/CLAUDE_brain.md` | Gobernanza del segundo cerebro: notas `.md` planas (nunca una carpeta por tema), wikilinks, índice al día, log append-only, ingest diferencial, provenance separado. |
-| `../skills/` | Las once skills, una carpeta con su `SKILL.md`. Viven en la raíz del kit, no duplicadas acá. |
+| `plantillas/settings_dell.json` | Los settings de usuario de la máquina de trabajo: modelo por defecto, vida del caché de prompts y el hook del contador de turnos. |
+| `../hooks/contador_turnos.sh` | El hook que cuenta los prompts de la sesión y avisa en el turno 15, 25 y 35. Es el mecanismo que hace cumplir la sesión acotada. |
+| `../skills/` | Las doce skills, una carpeta con su `SKILL.md`. Viven en la raíz del kit, no duplicadas acá. |
 | `../SYNC.md` | Cómo se mantiene el kit al día entre la máquina personal y la de trabajo. |
 
 ## Qué cambió respecto de la v1
@@ -26,6 +28,8 @@ La **v2 agrega la capa persona**. Sigue sin traer material: ningún dato, ningú
 4. **`PRINCIPIOS_DE_TRABAJO.md` es nuevo** y es la pieza más portátil: entra entera en las instrucciones de un proyecto.
 5. **Las skills viven en `../skills/`.** Si cambian, cambian ahí y esta carpeta no se entera.
 6. **Hay plantillas de estructura** (`plantillas/`): el router de la raíz de trabajo y la gobernanza del segundo cerebro. Son la parte del método que no es una regla de trato sino una forma de acomodar los archivos, y sin ellas el kit dejaba armar el entorno a mano cada vez.
+
+7. **La sesión acotada tiene mecanismo, no solo regla.** Antes el kit pedía "una sesión por tarea, corta" y quedaba en buena intención. Ahora hay tres piezas que la sostienen: la sección *Sesión acotada* de `CLAUDE.md` (grill de 3 preguntas, plan de 3 líneas, cierre automático con `/clear`), la skill `sesion-acotada` con el detalle, y un hook que cuenta los turnos y avisa cuando hay que cerrar.
 
 ## La regla de corte
 
@@ -60,11 +64,34 @@ Tres vías previstas, en orden de preferencia. **La primera es la que está en u
 
 **1. Repo público de GitHub.** La carpeta completa del kit (v1, v2, `plantillas/` y `skills/`) en un repo propio. Desde la máquina de trabajo: `git clone`, o traer un archivo suelto por su URL raw. Ventaja: se actualiza en un lugar y se baja donde haga falta, y no requiere mandarse nada por mail. Condición: el checklist de arriba tiene que estar cerrado, porque público es público.
 
-**2. Upload al knowledge de un Project.** En la interfaz web corporativa: crear un Project, pegar `CLAUDE.md` (o `PRINCIPIOS_DE_TRABAJO.md`, que es más compacto) en las instrucciones del proyecto, y subir `QUIEN_SOY.md` más los nueve `SKILL.md` de `../skills/` al knowledge, con nombres distinguibles (`skill_matriz-decision.md`, etc.). Agregar al final de las instrucciones: *"En el knowledge de este project hay procedimientos (`skill_*.md`). Antes de ejecutar una tarea, fijate si alguno aplica por sus disparadores y seguilo."*
+**2. Upload al knowledge de un Project.** En la interfaz web corporativa: crear un Project, pegar `CLAUDE.md` (o `PRINCIPIOS_DE_TRABAJO.md`, que es más compacto) en las instrucciones del proyecto, y subir `QUIEN_SOY.md` más los doce `SKILL.md` de `../skills/` al knowledge, con nombres distinguibles (`skill_matriz-decision.md`, etc.). Agregar al final de las instrucciones: *"En el knowledge de este project hay procedimientos (`skill_*.md`). Antes de ejecutar una tarea, fijate si alguno aplica por sus disparadores y seguilo."*
 
 **3. Mail de respaldo.** Mandarme los archivos a mi propia casilla personal, como copia de seguridad y como vía de último recurso si las otras dos no están disponibles el día que las necesito. No es la vía primaria: el mail no versiona.
 
 En Claude Code corporativo, el destino de los archivos es `CLAUDE.md` en la raíz del directorio de trabajo (o `~/.claude/CLAUDE.md` si quiero que valga para todo) y `.claude/skills/<nombre>/SKILL.md` por cada skill.
+
+## Instalar el freno de sesión (4 pasos)
+
+El problema que resuelve: las sesiones-maratón (abrir una conversación, tirarle todo lo que se cruza y no cerrarla nunca) se pagan caras, porque el costo lo dominan el contexto arrastrado y los cache misses, no el trabajo útil. Estos cuatro pasos dejan el freno cableado en la máquina de trabajo.
+
+1. **Copiar el hook**: `hooks/contador_turnos.sh` a `~/.claude/hooks/contador_turnos.sh`.
+2. **Darle permiso de ejecución**: `chmod +x ~/.claude/hooks/contador_turnos.sh` (en Windows con Git Bash no hace falta: el hook se invoca como `bash <ruta>`, que no necesita el bit de ejecución).
+3. **Copiar los settings**: `v2/plantillas/settings_dell.json` a `~/.claude/settings.json`. Si ya existe uno, fusionar las claves a mano en vez de pisarlo. La ruta del hook adentro del archivo es `~/.claude/hooks/contador_turnos.sh`: si el hook va a otro lado, se cambia ahí.
+4. **Verificar**: abrir una sesión nueva y mandar prompts hasta el 15. Tiene que aparecer la línea del contador. Si no aparece, `/hooks` muestra qué hooks están registrados.
+
+Qué hace cada clave de `settings_dell.json`:
+
+- `"model": "sonnet"` — el modelo con el que arranca la sesión. El caro se elige a mano cuando la tarea lo pide.
+- `"promptCacheTtl": "1h"` y `"subagentPromptCacheTtl": "1h"` — la vida del caché de prompts: una hora en vez de cinco minutos, para la conversación principal y para todo lo demás (subagentes, workflows, compactación). Importa cuando la sesión queda idle: con cinco minutos, volver a ella después de una reunión hace reprocesar todo el contexto. Requieren Claude Code v2.1.242 o posterior. Contracara documentada: la escritura de caché de una hora se factura a una tarifa más alta, así que en ráfagas cortas que nunca superan los cinco minutos se paga de más.
+- `"crossSessionInbound": "hold"` — los mensajes que llegan de otras sesiones se muestran como aviso y no se entregan solos. Evita que una sesión ajena empuje contexto (y tokens) adentro de la que está trabajando.
+
+Sobre el hook, lo verificado en la documentación oficial:
+
+- El evento es `UserPromptSubmit`, que **no acepta `matcher`**: corre en cada prompt. La forma de registrarlo es la del archivo: `hooks` → `UserPromptSubmit` → un objeto con su propio array `hooks` → `{"type": "command", "command": "..."}`.
+- En `UserPromptSubmit`, el stdout del hook en texto plano **se agrega al contexto** como algo que el modelo ve. Por eso alcanza con un `echo`: no hace falta devolver JSON. El script sale siempre con código 0 y nunca con 2, porque en este evento el código 2 bloquea y borra el prompt.
+- El timeout de este hook es de 30 segundos; el script corre en milisegundos.
+- **Windows**: la documentación dice que el shell de un hook de comando es bash por defecto, y PowerShell solo cuando Git Bash no está instalado. O sea que conviene tener **Git for Windows** instalado para que el script corra como está. (La doc no trae una sección "hooks en Windows" con más detalle que eso.)
+- El contador guarda un archivo por sesión en `${TMPDIR:-/tmp}` y borra los de más de dos días. Es un conteo de prompts, no una medida de gasto: sirve como aviso, no como métrica.
 
 ## Cómo usarlo el primer día
 
