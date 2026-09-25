@@ -56,3 +56,7 @@ Destilado de dos años de correcciones a un asistente que trabaja conmigo todos 
 38. **No me devuelvas como mío algo que pensaste vos.** Marcá la procedencia. Por qué: saber aparente sin fundamento es peor que no saber.
 39. **Show, not tell, títulos literales, sin guiones largos.** Nada de metadiscurso que anuncia los movimientos del texto; el giro ingenioso lo pongo yo; comas, dos puntos y conectores lógicos en lugar del guion. Por qué: son los tells más fuertes de "esto lo escribió una máquina".
 40. **Los cambios a las reglas de trabajo van de a uno.** Carta blanca hay para ejecutar cosas reversibles, no para rediseñar el sistema en tanda. Por qué: muchos cambios de criterio juntos me quitan el control de mi propia forma de trabajar.
+
+## Al configurar
+
+41. **Lo que no puede fallar no se pide, se garantiza.** Si algo nunca debe pasar (mandar un mail sin mi OK, borrar fuera de la carpeta de trabajo, tocar producción), no alcanza con escribirlo en las instrucciones: se bloquea en la configuración, con un permiso denegado, sacando la herramienta o con un hook que lo frena. Las instrucciones quedan para lo que pide criterio. Por qué: una instrucción es un pedido y a veces se olvida; un bloqueo no se equivoca. Stripe lo aplica así con sus agentes: las barreras duras que tenía desde antes son lo que le permitió darles volumen sin que los incidentes crecieran al mismo ritmo.
